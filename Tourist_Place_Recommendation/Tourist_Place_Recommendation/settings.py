@@ -32,7 +32,7 @@ AUTH_USER_MODEL = "Tourist_App.User"
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-n=uge+d#zm1jf!&hl@0+opg(%vbmdlrm=o8xz^hmjf6m13kre6')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", ".vercel.app", ".show.sh",".tpr-azure.vercel.app"]
 
@@ -166,9 +166,11 @@ STATIC_URL = "static/"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), os.path.join(BASE_DIR, "file")]
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "Tourist_App" / "static"]
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build" "static")
 STATIC_ROOT = BASE_DIR / "staticfiles_build"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
