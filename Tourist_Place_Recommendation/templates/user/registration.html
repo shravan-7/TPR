@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Tourist Place Recommendation</title>
+		{% load static %}
+
+		<link
+			href="{% static 'css/bootstrap.min.css' %}"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			href="{% static 'css/style.css' %}"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			href="{% static 'css/signup.css' %}"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="{% static 'images/favicon.png' %}"
+		/>
+
+		{% block jquery %}
+
+		<script
+			type="text/javascript"
+			src="{% static 'js/jquery.min.js' %}"
+		></script>
+		<script
+			type="text/javascript"
+			src="{% static 'js/popper.min.js' %}"
+		></script>
+		<script
+			type="text/javascript"
+			src="{% static 'js/bootstrap.min.js' %}"
+		></script>
+		<script
+			type="text/javascript"
+			src="{% static 'js/myScript.js' %}"
+		></script>
+
+		{% endblock %}
+	</head>
+	<style></style>
+
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-dark p-3">
+			<a class="navbar-brand text-white" href="/home/"
+				><b>Tourist Place Recommendation</b></a
+			>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active mx-3">
+						<a class="nav-link text-white" href="/home/"
+							><b>Home</b>
+							<span class="sr-only">(current)</span></a
+						>
+					</li>
+					<li class="nav-item active mx-3">
+						<a class="nav-link text-white" href="/userlogin/"
+							><b>Login</b>
+							<span class="sr-only">(current)</span></a
+						>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container mt-5 mb-4">
+			{% if messages %} {% for message in messages %}
+			<div class="d-flex justify-content-center my-2">
+				<div
+					class="alert {{ message.tags }} alert-dismissible fade show text-center w-75"
+					id="msg"
+					role="alert"
+				>
+					<strong>{{ message }}!</strong>
+				</div>
+			</div>
+			{% endfor %} {% endif %}
+
+			<div class="row justify-content-center mt-5">
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header">
+							<h3 class="text-center text-black">Registration</h3>
+						</div>
+						<div class="card-body">
+							<form
+								id="formAddCollege"
+								action="/saveUser/"
+								method="post"
+								onsubmit="return validateUser()"
+								id="userSignup"
+							>
+								{% csrf_token %}
+
+								<input
+									type="hidden"
+									name="q"
+									value="addCollege"
+								/>
+
+								<div class="form-group">
+									<input
+										type="text"
+										class="form-control"
+										id="uname"
+										name="uname"
+										placeholder="Name"
+										autocomplete="off"
+									/>
+								</div>
+
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text"
+												>+91</span
+											>
+										</div>
+										<input
+											type="tel"
+											class="form-control"
+											name="contactNo"
+											id="contactNo"
+											placeholder="Contact Number"
+											maxlength="10"
+											autocomplete="off"
+										/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<input
+										type="email"
+										class="form-control"
+										name="emailId"
+										id="emailId"
+										placeholder="Email-ID"
+										autocomplete="off"
+									/>
+								</div>
+
+								<div class="form-group">
+									<select
+										class="form-control"
+										name="gender"
+										id="gender"
+									>
+										<option value="-1">
+											Select Gender
+										</option>
+										<option value="1">Male</option>
+										<option value="2">Female</option>
+										<option value="3">Other</option>
+									</select>
+								</div>
+								<label>Select your category preferences</label>
+								<div
+									class="scrolling-checkboxes border mb-4 p-2"
+								>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Camp"
+											id="camp"
+										/>
+										<label
+											class="form-check-label"
+											for="camp"
+										>
+											Camp
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Church"
+											id="church"
+										/>
+										<label
+											class="form-check-label"
+											for="church"
+										>
+											Church
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Fort"
+											id="fort"
+										/>
+										<label
+											class="form-check-label"
+											for="fort"
+										>
+											Fort
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Hill"
+											id="hill"
+										/>
+										<label
+											class="form-check-label"
+											for="hill"
+										>
+											Hill
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Hindu temple"
+											id="hindu-temple"
+										/>
+										<label
+											class="form-check-label"
+											for="hindu-temple"
+										>
+											Hindu temple
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Island"
+											id="island"
+										/>
+										<label
+											class="form-check-label"
+											for="island"
+										>
+											Island
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Jain temple"
+											id="jain-temple"
+										/>
+										<label
+											class="form-check-label"
+											for="jain-temple"
+										>
+											Jain temple
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Lake"
+											id="lake"
+										/>
+										<label
+											class="form-check-label"
+											for="lake"
+										>
+											Lake
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Mountain"
+											id="mountain"
+										/>
+										<label
+											class="form-check-label"
+											for="mountain"
+										>
+											Mountain
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Museum"
+											id="museum"
+										/>
+										<label
+											class="form-check-label"
+											for="museum"
+										>
+											Museum
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Park"
+											id="park"
+										/>
+										<label
+											class="form-check-label"
+											for="park"
+										>
+											Park
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Port"
+											id="port"
+										/>
+										<label
+											class="form-check-label"
+											for="port"
+										>
+											Port
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Water Park"
+											id="water-park"
+										/>
+										<label
+											class="form-check-label"
+											for="water-park"
+										>
+											Water Park
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Waterfalls"
+											id="waterfalls"
+										/>
+										<label
+											class="form-check-label"
+											for="waterfalls"
+										>
+											Waterfalls
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											name="category"
+											value="Zoo"
+											id="zoo"
+										/>
+										<label
+											class="form-check-label"
+											for="zoo"
+										>
+											Zoo
+										</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label
+										>Select your location preferences</label
+									>
+									<div
+										class="scrolling-checkboxes border p-2"
+									>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Mangaluru"
+												id="mangaluru"
+											/>
+											<label
+												class="form-check-label"
+												for="mangaluru"
+											>
+												Mangaluru
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Udupi"
+												id="udupi"
+											/>
+											<label
+												class="form-check-label"
+												for="udupi"
+											>
+												Udupi
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Karwar"
+												id="karwar"
+											/>
+											<label
+												class="form-check-label"
+												for="karwar"
+											>
+												Karwar
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Agumbe"
+												id="agumbe"
+											/>
+											<label
+												class="form-check-label"
+												for="agumbe"
+											>
+												Agumbe
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Shivamogga"
+												id="shivamogga"
+											/>
+											<label
+												class="form-check-label"
+												for="shivamogga"
+											>
+												Shivamogga
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Kollur"
+												id="kollur"
+											/>
+											<label
+												class="form-check-label"
+												for="kollur"
+											>
+												Kollur
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Honnavar"
+												id="honnavar"
+											/>
+											<label
+												class="form-check-label"
+												for="honnavar"
+											>
+												Honnavar
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Murdeshwar"
+												id="murdeshwar"
+											/>
+											<label
+												class="form-check-label"
+												for="murdeshwar"
+											>
+												Murdeshwar
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Magod"
+												id="magod"
+											/>
+											<label
+												class="form-check-label"
+												for="magod"
+											>
+												Magod
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<textarea
+										class="form-control"
+										name="address"
+										id="address"
+										placeholder="Address"
+										autocomplete="off"
+										rows="3"
+									></textarea>
+								</div>
+
+								<div class="form-group">
+									<input
+										type="text"
+										class="form-control"
+										name="username"
+										id="username"
+										placeholder="Username"
+										autocomplete="off"
+									/>
+								</div>
+
+								<div class="form-group">
+									<input
+										type="password"
+										class="form-control"
+										name="password"
+										id="password"
+										placeholder="Password"
+										autocomplete="off"
+									/>
+								</div>
+
+								<div
+									class="error text-danger font-weight-bold text-center"
+								></div>
+
+								<div class="form-group text-center">
+									<button
+										type="submit"
+										class="btn btn-dark w-50"
+										id="btbaddFarmer"
+									>
+										Register
+									</button>
+								</div>
+
+								<div class="form-group text-center text-black">
+									I have an account?
+									<a href="/userlogin/" class="text-primary"
+										>Login</a
+									>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="bg-dark text-white mt-4 py-4">
+			<div class="container text-center">
+				<div class="row">
+					<div class="col-md-4">
+						<h5>About Us</h5>
+						<p>
+							Coastal Karnataka Tourism is dedicated to promoting
+							the natural beauty and cultural heritage of Coastal
+							Karnataka.
+						</p>
+					</div>
+					<div class="col-md-4">
+						<h5>Quick Links</h5>
+						<ul class="list-unstyled">
+							<li>
+								<a href="/homepage/" class="white-link">Home</a>
+							</li>
+							<li>
+								<a href="/topRated/" class="white-link"
+									>Top Places</a
+								>
+							</li>
+							<li>
+								<a href="/registration/" class="white-link"
+									>Sign Up</a
+								>
+							</li>
+							<li>
+								<a href="/userlogin/" class="white-link"
+									>Sign In</a
+								>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-4">
+						<h5>Contact Us</h5>
+						<p>Coastal Karnataka Tourism</p>
+						<p>Email: info@coastalkarnatakatourism.com</p>
+						<p>Phone: +91 1234567890</p>
+					</div>
+				</div>
+				<hr class="bg-white" />
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<p>&copy; 2024 Coastal Karnataka Tourism</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

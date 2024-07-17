@@ -1,0 +1,74 @@
+{% extends 'user/navigation.html' %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/search.css'%}" />
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+<section id="hero" class="text-center">
+	<h1 class="text-center">Explore Coastal Karnataka</h1>
+	<h5 class="text-center mt-4">
+		Discover the hidden gems of Coastal Karnataka.<br />
+		From the pristine beaches to the lush greenery of the Western Ghats,
+		there's something for everyone.
+	</h5>
+</section>
+<section>
+	<div class="container" id="container">
+		<div class="row d-flex justify-content-center align-items-center mb-4">
+			<div class="col-md-8">
+				<div class="search">
+					<i class="fa fa-search"></i>
+					<input
+						class="form-control p-4 text-center"
+						style="border-radius: 10px"
+						id="postTextArea"
+						placeholder="Search Your Favorite Places..."
+						oninput="searchPlaces(this.value)"
+					/>
+					<button class="btn btn-dark">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="info-container">
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-md-4">
+				<div class="info-item">
+					<i class="fas fa-map-marked-alt info-icon"></i>
+					<h3 class="info-title">Interactive Map</h3>
+					<p class="info-description">
+						Explore tourist spots with our interactive map feature.
+					</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="info-item">
+					<i class="fas fa-star info-icon"></i>
+					<h3 class="info-title">Save Favorites</h3>
+					<p class="info-description">
+						Save your favorite places for future reference.
+					</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="info-item">
+					<i class="fas fa-camera info-icon"></i>
+					<h3 class="info-title">Gallery</h3>
+					<p class="info-description">
+						View stunning images of Coastal Karnataka's attractions.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="row mt-4" id="row"></div>
+
+{% endblock content %}

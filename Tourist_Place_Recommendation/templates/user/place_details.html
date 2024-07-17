@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+{% extends 'user/navigation.html' %} {% block content %} {% load static %}
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+<link rel="stylesheet" href="{% static 'css/elemstyles.mapcss' %}" />
+<link
+	rel="stylesheet"
+	type="text/css"
+	href="https://js.api.here.com/v3/3.1/mapsjs-ui.css"
+/>
+<link rel="stylesheet" href="{% static 'css/place_details.css' %}" />
+
+<div class="container p-4 mt-4" style="border-radius: 10px">
+	{% if details %}
+	<div class="d-flex align-items-center justify-content-between mb-4">
+		<h1 class="text-dark"><b>{{details.Name}}</b></h1>
+		<div class="row d-flex align-items-center mr-4">
+			<i
+				id="favorite-icon"
+				class="favorite-icon fa fa-heart mr-2"
+				data-place-id="{{details.ID}}"
+			></i>
+
+			<a href="{{details.Map_link}}">
+				<img
+					src="{% static 'images/google-maps.png'%}"
+					style="width: 50px; height: 50px"
+					alt="Map Image"
+				/>
+			</a>
+		</div>
+	</div>
+
+	<!-- Photos Container -->
+	<div class="container">
+		<!-- Full-width images with number and caption text -->
+		<div class="carousel-container">
+			<!-- Slides -->
+			<div class="mySlides animate">
+				<img
+					src="{% static 'images/place_image/' %}{{ details.ID }}/{{ details.ID }}a.jpg"
+					alt="slide"
+				/>
+			</div>
+			<div class="mySlides animate">
+				<img
+					src="{% static 'images/place_image/' %}{{ details.ID }}/{{ details.ID }}b.jpg"
+					alt="slide"
+				/>
+			</div>
+			<div class="mySlides animate">
+				<img
+					src="{% static 'images/place_image/' %}{{ details.ID }}/{{ details.ID }}c.jpg"
+					alt="slide"
+				/>
+			</div>
+			<!-- Next and previous buttons -->
+			<a class="prev" onclick="prevSlide()">&#10094;</a>
+			<a class="next" onclick="nextSlide()">&#10095;</a>
+			<!-- The dots/circles -->
+			<div class="dot-container">
+				<span class="dot" onclick="currentSlide(1)"></span>
+				<span class="dot" onclick="currentSlide(2)"></span>
+				<span class="dot" onclick="currentSlide(3)"></span>
+			</div>
+		</div>
+		<!-- Description Container -->
+		<div class="col mt-5">
+			<h4 class="card-title"><b>Description</b></h4>
+			<div class="description-container">
+				<div class="card w-100 mt-2">
+					<div class="card-body">
+						<p class="card-text">{{details.Description}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row p-5" style="width: 100%">
+	<!-- Weather Details -->
+	<div class="col-md-6">
+		<h4><b>Weather</b></h4>
+
+		<div class="weather-widget p-4">
+			<div class="weather-header text-center p-2">
+				<img
+					class="weather-icon"
+					src="https://openweathermap.org/img/wn/{{ weather_data.weather.0.icon }}.png"
+					alt="Weather Icon"
+				/>
+				<div class="weather-description">
+					{{ weather_data.weather.0.description }}
+				</div>
+			</div>
+			<div class="weather-details">
+				<div class="weather-info">
+					<div class="row mb-2">
+						<div class="col-sm-4">
+							<p class="weather-feature">Temperature</p>
+							<p>{{ weather_data.main.temp }} °C</p>
+						</div>
+						<div class="col-sm-4">
+							<p class="weather-feature">Humidity</p>
+							<p>{{ weather_data.main.humidity }}%</p>
+						</div>
+						<div class="col-sm-4">
+							<p class="weather-feature">Feels Like</p>
+							<p>{{ weather_data.main.feels_like }} °C</p>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-sm-4">
+							<p class="weather-feature">Wind Speed</p>
+							<p>{{ weather_data.wind.speed }} m/s</p>
+						</div>
+						<div class="col-sm-4">
+							<p class="weather-feature">Min Temperature</p>
+							<p>{{ weather_data.main.temp_min }} °C</p>
+						</div>
+						<div class="col-sm-4">
+							<p class="weather-feature">Max Temperature</p>
+							<p>{{ weather_data.main.temp_max }} °C</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">
+							<p class="weather-feature">Wind Speed</p>
+							<p>{{ weather_data.wind.speed }} m/s</p>
+						</div>
+						<div class="col-sm-4">
+							<p class="weather-feature">Pressure</p>
+							<p>{{ weather_data.main.pressure }} hPa</p>
+						</div>
+						<div class="col-sm-4">
+							<p class="weather-feature">Visibility</p>
+							<p>{{ weather_data.visibility }} meters</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Map Container -->
+	<div class="col-md-6">
+		<h4><b>Map</b></h4>
+		<div
+			class="map-container"
+			id="map"
+			data-maplink="{{details.Map_link}}."
+		></div>
+	</div>
+</div>
+
+<div class="container-lg p-5 mx-5 bg-white my-5" style="border-radius: 10px">
+	{% if Isreviewed == 0 %}
+	<button id="writeReviewBtn">Write a Review</button>
+	{%endif%}
+
+	<!-- Review form -->
+	<div id="reviewForm" style="display: none">
+		<form
+			id="reviewFormAjax"
+			action="/submit_review/{{details.ID}}/"
+			method="post"
+			enctype="multipart/form-data"
+		>
+			{% csrf_token %}
+
+			<input type="hidden" name="place_id" value="{{ place_id }}" />
+			<div>
+				<div class="question mt-4">
+					<h5><b>How would you rate your experience?</b></h5>
+				</div>
+				<div class="rating" style="width: 160px; height: 50px">
+					<input type="radio" id="rating_5" name="rating" value="5" />
+					<label for="rating_5" class="star"
+						><i class="fas fa-star"></i
+					></label>
+					<input type="radio" id="rating_4" name="rating" value="4" />
+					<label for="rating_4" class="star"
+						><i class="fas fa-star"></i
+					></label>
+					<input type="radio" id="rating_3" name="rating" value="3" />
+					<label for="rating_3" class="star"
+						><i class="fas fa-star"></i
+					></label>
+					<input type="radio" id="rating_2" name="rating" value="2" />
+					<label for="rating_2" class="star"
+						><i class="fas fa-star"></i
+					></label>
+					<input type="radio" id="rating_1" name="rating" value="1" />
+					<label for="rating_1" class="star"
+						><i class="fas fa-star"></i
+					></label>
+				</div>
+			</div>
+			<div>
+				<div class="question mt-2">
+					<h5><b>Who did you go with?</b></h5>
+				</div>
+				<div class="group mt-3">
+					<input
+						type="radio"
+						name="with_whom"
+						id="Business"
+						class="withBtn"
+						value="Business"
+						required
+					/>
+					<label for="Business">Business</label>
+					<input
+						type="radio"
+						name="with_whom"
+						id="Couples"
+						class="withBtn"
+						value="Couples"
+					/>
+					<label for="Couples">Couples</label>
+					<input
+						type="radio"
+						name="with_whom"
+						id="Family"
+						class="withBtn"
+						value="Family"
+					/>
+					<label for="Family">Family</label>
+					<input
+						type="radio"
+						name="with_whom"
+						id="Friends"
+						class="withBtn"
+						value="Friends"
+					/>
+					<label for="Friends">Friends</label>
+					<input
+						type="radio"
+						name="with_whom"
+						id="Solo"
+						class="withBtn"
+						value="Solo"
+					/>
+					<label for="Solo">Solo</label>
+				</div>
+			</div>
+
+			<div>
+				<div class="question mt-4">
+					<h5><b>Write your review:</b></h5>
+				</div>
+				<textarea
+					class="mt-3"
+					id="reviewText"
+					name="reviewText"
+					rows="4"
+					required
+					placeholder="Write your review here..."
+				></textarea>
+			</div>
+			<div class=" mt-4">
+        <h5><b>Add some photos:</b></h5>
+        <div class="row justify-content-center">
+            <div class="fileupload">
+                <div class="drag-drop-area" id="dropArea">
+                    <label for="fileInput" class="file-upload" role="button" tabindex="0" data-automation="photo-upload-trigger">
+                        <svg viewBox="0 0 24 24" width="24px" height="24px" style="vertical-align: middle">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.172 4.231h17.592v9.05h-1.5V5.73H3.672V16.58H15.37v1.5H2.172V4.23zm5.941 6.048a1.314 1.314 0 100-2.629 1.314 1.314 0 000 2.63zm.35 4.382H6.362c-.438 0-.614-.438-.35-.789l1.4-1.227c.176-.175.526-.175.701 0l.964.964c.175.175.526.175.701 0l2.629-2.366c.174-.175.526-.175.7 0l3.155 2.629c.263.263.089.789-.35.789H8.465zm9.793 3.417h-1.928v-1.5h1.928v-2.31h1.5v2.31h2.072v1.5h-2.072v1.69h-1.5v-1.69z"></path>
+                        </svg>
+                        <span class="text">Click to add photos or drag and drop</span>
+                        <input type="file" id="fileInput" name="images" multiple accept="image/*" />
+                    </label>
+                    <p class="drag-text">Drop your photos here</p>
+                </div>
+                <div id="imagePreviewContainer" class="image-preview-container"></div>
+            </div>
+        </div>
+    </div>
+			<div class="container text-center">
+				<button type="submit" class="btn btn-primary mt-4">
+					Submit Review
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="mt-4">
+		<h2><b>Reviews</b></h2>
+		<div class="review-summary mt-4">
+			<div class="score-container">
+				<div class="score">0.0</div>
+				<div class="rating-bubbles ml-1">
+					<!-- Rating stars will be dynamically generated by JavaScript -->
+					<div class="rating_value">
+						<span class="star">&#9733;</span>
+						<span class="star">&#9733;</span>
+						<span class="star">&#9733;</span>
+						<span class="star">&#9733;</span>
+						<span class="star">&#9733;</span>
+					</div>
+					<span class="review-count ml-2">0 reviews</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="filter-container">
+			<div class="filter">
+				<div class="rating-type">Excellent</div>
+				<div class="bar">
+					<div class="fill" style="width: 0%"></div>
+				</div>
+				<div class="count">0</div>
+			</div>
+			<div class="filter">
+				<div class="rating-type">Very good</div>
+				<div class="bar">
+					<div class="fill" style="width: 0%"></div>
+				</div>
+				<div class="count">0</div>
+			</div>
+			<div class="filter">
+				<div class="rating-type">Average</div>
+				<div class="bar">
+					<div class="fill" style="width: 0%"></div>
+				</div>
+				<div class="count">0</div>
+			</div>
+			<div class="filter">
+				<div class="rating-type">Poor</div>
+				<div class="bar">
+					<div class="fill" style="width: 0%"></div>
+				</div>
+				<div class="count">0</div>
+			</div>
+			<div class="filter">
+				<div class="rating-type">Terrible</div>
+				<div class="bar">
+					<div class="fill" style="width: 0%"></div>
+				</div>
+				<div class="count">0</div>
+			</div>
+		</div>
+	</div>
+	<section class="mt-4" id="testimonials">
+		<!--testimonials-box-container------>
+		<div class="testimonial-box-container" id="testimonial-container">
+			<!-- JavaScript will dynamically generate testimonials here -->
+		</div>
+	</section>
+	{% endif %}
+	<!-- <div
+		id="place-data"
+		data-rating-count="{{ rating_count|safe }}"
+		data-review-details="{{ review_details|safe }}"
+	></div> -->
+</div>
+{{ rating_count|json_script:"rating-count-data" }}
+{{ review_details|json_script:"review-details-data" }}
+
+<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+<script src="{% static 'js/place_details.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+{% extends 'user/navigation.html' %} {% block content %} {% load static %}
+
+<div class="container-fluid mt-4">
+	<div class="row justify-content-center">
+		<div class="col-xl-8 col-lg-10">
+			<div class="card user-card-full">
+				<div class="row m-0">
+					<div class="col-sm-4 bg-c-lite-green user-profile">
+						<div
+							class="card-block text-center text-white py-5 px-5"
+						>
+							<div class="m-b-25">
+								{% if user.gender == 1 %}
+								<img
+									src="https://bootdey.com/img/Content/avatar/avatar7.png"
+									class="img-radius img-fluid"
+									alt="User-Profile-Image"
+									style="border-radius: 50%"
+								/>
+								{% elif user.gender == 2 %}
+								<img
+									src="{% static 'images/female_user.avif' %}"
+									class="img-radius img-fluid"
+									alt="User-Profile-Image"
+									style="border-radius: 50%"
+								/>
+								{% else %}
+								<img
+									src="https://bootdey.com/img/Content/avatar/avatar7.png"
+									class="img-radius img-fluid"
+									alt="User-Profile-Image"
+									style="border-radius: 50%"
+								/>
+								{% endif %}
+							</div>
+							<h3 style="color: #223344" class="f-w-600 mt-3">
+								{{ user.name }}
+							</h3>
+							<i
+								class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"
+							></i>
+						</div>
+					</div>
+					<div class="col-sm-8 py-5 px-5">
+						<div class="card-block">
+							<h3
+								class="m-b-20 p-b-5 b-b-default f-w-600 text-center mb-3"
+							>
+								Profile Information
+							</h3>
+							<div class="row my-3">
+								<div class="col-sm-6">
+									<h6 class="m-b-10 f-w-600">Email :</h6>
+									<h6 class="text-muted f-w-400">
+										{{ user.email }}
+									</h6>
+								</div>
+								<div class="col-sm-6">
+									<h6 class="m-b-10 f-w-600">
+										Contact Number :
+									</h6>
+									<h6 class="text-muted f-w-400">
+										{{ user.contact }}
+									</h6>
+								</div>
+							</div>
+							<div class="row my-3">
+								<div class="col-sm-6">
+									<h6 class="m-b-10 f-w-600">Gender :</h6>
+									{% if user.gender == 1 %}
+									<h6 class="text-muted f-w-400">Male</h6>
+									{% elif user.gender == 2 %}
+									<h6 class="text-muted f-w-400">Female</h6>
+									{% else %}
+									<h6 class="text-muted f-w-400">Others</h6>
+									{% endif %}
+								</div>
+								<div class="col-sm-6">
+									<h6 class="m-b-10 f-w-600">Address :</h6>
+									<h6 class="text-muted f-w-400">
+										{{ user.address }}
+									</h6>
+								</div>
+							</div>
+							<h3
+								class="m-b-20 p-b-5 b-b-default f-w-600 text-center mb-4"
+							>
+								Account Information
+							</h3>
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-6 my-3">
+										<div
+											class="d-flex justify-content-center align-items-center flex-column"
+										>
+											<h6 class="m-b-10 f-w-600">
+												Account Status :
+											</h6>
+											{% if user.is_enabled == 1 %}
+											<h6
+												class="text-white bg-success p-1 rounded text-center w-50 text-nowrap"
+											>
+												Activated
+											</h6>
+											{% else %}
+											<h6
+												class="text-white bg-danger p-1 rounded text-center w-50 text-nowrap"
+											>
+												De-Activated
+											</h6>
+											{% endif %}
+										</div>
+									</div>
+									<div class="col-sm-6 my-3">
+										<div
+											class="d-flex justify-content-center align-items-center flex-column"
+										>
+											<h6 class="m-b-10 f-w-600">
+												Account Verification :
+											</h6>
+											{% if user.is_verified == 1 %}
+											<h6
+												class="text-white bg-success p-1 rounded text-center w-50 text-nowrap"
+											>
+												Verified
+											</h6>
+											{% else %}
+											<h6
+												class="text-white bg-danger p-1 rounded text-center w-50 text-nowrap"
+											>
+												Not Verified
+											</h6>
+											{% endif %}
+										</div>
+									</div>
+									<div class="col-sm-6 my-3">
+										<div
+											class="d-flex justify-content-center align-items-center flex-column"
+										>
+											<h6 class="m-b-10 f-w-600">
+												Edit Profile :
+											</h6>
+											<button
+												class="btn btn-warning"
+												style="width: 150px"
+												data-toggle="modal"
+												data-target="#editProfileModal"
+											>
+												<i
+													class="fa-regular fa-pen-to-square fa-lg"
+												></i
+												><b class="text-white">Edit</b>
+											</button>
+										</div>
+									</div>
+									<div class="col-sm-6 my-3">
+										<div
+											class="d-flex justify-content-center align-items-center flex-column"
+										>
+											<h6 class="m-b-10 f-w-600">
+												Favorite Places :
+											</h6>
+											<button
+												class="btn btn-primary"
+												style="width: 150px"
+												onclick="redirectToFavoritePlaces()"
+											>
+												<i
+													class="fas fa-heart fa-lg"
+												></i
+												><b class="text-white"
+													>Favorites</b
+												>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div
+	class="modal fade"
+	id="editProfileModal"
+	tabindex="-1"
+	role="dialog"
+	aria-labelledby="exampleModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<form
+				id="editProfile"
+				action="/editProfile/{{user.id}}"
+				method="post"
+				enctype="multipart/form-data"
+			>
+				{% csrf_token %}
+				<div class="modal-header">
+					<h5 class="modal-title text-primary" id="heading">
+						Edit Profile
+					</h5>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-bs-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- {% if messages %}
+              {% for message in messages %}
+                <div id="modalErrorMessage" class="alert alert-danger">{{message}}</div>
+                {% endfor %}
+              {% endif %} -->
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-6">
+								<!-- Input Text Field -->
+								<div class="form-group">
+									<label for="textInput">Name</label>
+									<input
+										type="text"
+										class="form-control"
+										id="name"
+										name="name"
+										placeholder="Enter name"
+										value="{{user.name}}"
+										readonly
+									/>
+								</div>
+								<!-- Input Text Field -->
+								<div class="form-group">
+									<label for="textInput"
+										>Contact Number</label
+									>
+									<input
+										type="text"
+										class="form-control"
+										id="phone"
+										name="phone"
+										placeholder="Enter name"
+										value="{{user.contact}}"
+										readonly
+									/>
+								</div>
+								<!-- Input Text Field -->
+								<div class="form-group">
+									<label for="textInput">Email</label>
+									<input
+										type="email"
+										class="form-control"
+										id="email"
+										name="email"
+										placeholder="Enter name"
+										value="{{user.email}}"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label for="textInput">Username</label>
+									<input
+										type="text"
+										class="form-control"
+										id="username"
+										name="username"
+										placeholder="Enter name"
+										value="{{user.user_name}}"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label
+										>Select your location preferences</label
+									>
+									<div
+										class="scrolling-checkboxes border p-2"
+									>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Mangaluru"
+												id="mangaluru"
+											/>
+											<label
+												class="form-check-label"
+												for="mangaluru"
+											>
+												Mangaluru
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Udupi"
+												id="udupi"
+											/>
+											<label
+												class="form-check-label"
+												for="udupi"
+											>
+												Udupi
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Karwar"
+												id="karwar"
+											/>
+											<label
+												class="form-check-label"
+												for="karwar"
+											>
+												Karwar
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Agumbe"
+												id="agumbe"
+											/>
+											<label
+												class="form-check-label"
+												for="agumbe"
+											>
+												Agumbe
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Shivamogga"
+												id="shivamogga"
+											/>
+											<label
+												class="form-check-label"
+												for="shivamogga"
+											>
+												Shivamogga
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Kollur"
+												id="kollur"
+											/>
+											<label
+												class="form-check-label"
+												for="kollur"
+											>
+												Kollur
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Honnavar"
+												id="honnavar"
+											/>
+											<label
+												class="form-check-label"
+												for="honnavar"
+											>
+												Honnavar
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Murdeshwar"
+												id="murdeshwar"
+											/>
+											<label
+												class="form-check-label"
+												for="murdeshwar"
+											>
+												Murdeshwar
+											</label>
+										</div>
+										<div class="form-check">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												name="location"
+												value="Magod"
+												id="magod"
+											/>
+											<label
+												class="form-check-label"
+												for="magod"
+											>
+												Magod
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="currentPassword"
+										>Current Password</label
+									>
+									<input
+										type="password"
+										class="form-control"
+										id="currentPassword"
+										name="currentPassword"
+										placeholder="Enter current password"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<label for="newPassword"
+										>New Password</label
+									>
+									<input
+										type="password"
+										class="form-control"
+										id="newPassword"
+										name="newPassword"
+										placeholder="Enter new password"
+										
+									/>
+								</div>
+								<div class="form-group">
+									<label for="confirmNewPassword"
+										>Confirm New Password</label
+									>
+									<input
+										type="password"
+										class="form-control"
+										id="confirmNewPassword"
+										name="confirmNewPassword"
+										placeholder="Confirm new password"
+										
+									/>
+								</div>
+								<!-- Select Field -->
+								<div class="form-group">
+									<label for="selectField">Gender</label>
+									<select
+										class="form-control"
+										id="gender"
+										name="gender"
+										required
+									>
+										<option
+											value="{{ user.gender }}"
+											selected
+										>
+											Select Gender
+										</option>
+										<option value="1">Male</option>
+										<option value="2">Female</option>
+										<option value="3">Others</option>
+									</select>
+								</div>
+								<!-- Textarea Field -->
+								<div class="form-group">
+									<label for="textareaField">Address:</label>
+									<textarea
+										class="form-control"
+										id="address"
+										placeholder="address"
+										name="address"
+										rows="3"
+									>
+{{ user.address }}</textarea
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div
+					class="error text-danger font-weight-bold text-center"
+				></div>
+				<div class="modal-footer">
+					<button
+						type="button"
+						class="btn btn-secondary"
+						data-dismiss="modal"
+					>
+						Close
+					</button>
+					<button type="submit" class="btn btn-primary">
+						Update Profile
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<style>
+	.modal-dialog.modal-lg {
+		max-width: 80%;
+	}
+
+	#message-container {
+		position: fixed;
+		top: 20px;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 1000;
+		transition: opacity 0.5s ease-in-out;
+	}
+	.scrolling-checkboxes {
+		max-height: 100px;
+		overflow-y: auto;
+	}
+	.user-profile {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-image: linear-gradient(
+			to left,
+			#d16bca,
+			#9293fb,
+			#04b4ff,
+			#00cbfa,
+			#00dbd9,
+			#3de3c5,
+			#6beaad,
+			#97ee94,
+			#a6f288,
+			#b8f67b,
+			#cbf96d,
+			#e0fb5f
+		);
+	}
+	.user-card-full {
+		overflow: hidden;
+	}
+	.user-card-full .card-block {
+		background-color: rgba(255, 255, 255, 0.7);
+	}
+</style>
+
+<script>
+	setTimeout(function () {
+		if ($("#msg").length > 0) {
+			$("#msg").remove();
+		}
+	}, 2500);
+	function redirectToFavoritePlaces() {
+		window.location.href = "{% url 'favorite_places' %}";
+	}
+</script>
+
+{% endblock content %}

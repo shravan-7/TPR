@@ -1,0 +1,133 @@
+{% extends 'user/navigation.html' %} {% block content %} {% load static %}
+
+<link rel="stylesheet" href="{% static 'css/toprated.css' %}" />
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+<style>
+	.redirect-button {
+		z-index: 10000;
+		display: inline-block;
+		width: 35px; 
+		height: 35px; 
+		background-image: url("{% static 'images/google-maps.png' %}");
+		background-size: cover; 
+		text-indent: -9999px; /* Hide text */
+		transition: transform 0.3s ease, background-color 0.4s ease; 
+	}
+</style>
+
+<div class="container-fluid" style="margin-top: 10px">
+	<div class="row" id="row">
+		{% for res in data %}
+		<div class="article">
+			<article>
+				<figure>
+					<img
+						src="{% static 'images/place_image/' %}{{ res.ID }}/{{ res.ID }}c.jpg"
+						class="card-img-top"
+						alt="..."
+					/>
+					<div
+						class="FavoriteDiv"
+						data-id="{{res.ID}}"
+						onload="favoritefun('{{ res.ID }}')"
+					></div>
+				</figure>
+				<div class="article-body">
+					<h6 class="card-title">{{ res.Name }}</h6>
+					<div class="description-container">
+						<div class="rating-and-button">
+							<div class="rating-and-text">
+								<div
+									class="rating"
+									data-rating="{{ res.Ratings }}"
+								>
+									<span class="star">&#9733;</span>
+									<span class="star">&#9733;</span>
+									<span class="star">&#9733;</span>
+									<span class="star">&#9733;</span>
+									<span class="star">&#9733;</span>
+								</div>
+								<div class="rating-text">
+									<span class="rating-valuee"
+										>{{ res.Ratings }}/5</span
+									>
+								</div>
+							</div>
+							<div class="button-link">
+								<a
+									href="{{ res.Map_link }}"
+									class="redirect-button"
+								></a>
+							</div>
+						</div>
+						<p class="card-text description">
+							{{ res.Description|truncatewords:30 }}
+						</p>
+						<a
+							href="/getMoreDetails/{{ res.ID }}/"
+							class="read-more"
+						>
+							Read More
+							<span class="sr-only"
+								>Read more about {{ res.Name }}</span
+							>
+							<svg
+								class="icon"
+								xmlns="https://www.w3.org/2000/svg"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+									clip-rule="evenodd"
+								/>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</article>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %} {% block script %}
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-1wkPte/PSB2DvM1Wx7Au+Bz3o3cQQmlStudnZTp8gL4OVjJ8NhBRtR1Y5FPsSx1ldplMf2lR8S1D56O7H/BKQw=="
+	crossorigin="anonymous"
+	referrerpolicy="no-referrer"
+></script>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const ratingDivs = document.querySelectorAll(".rating");
+
+		ratingDivs.forEach(function (ratingDiv) {
+			const ratingValue = parseFloat(
+				ratingDiv.getAttribute("data-rating")
+			);
+			if (!isNaN(ratingValue)) {
+				setRating(ratingDiv, ratingValue);
+			}
+		});
+
+		function setRating(ratingDiv, value) {
+			const percentage = 100 - 10 * 2 * value;
+			const totalWidth = 105; 
+			console.log("percentage--------->", percentage);
+
+			const lastStarWidth = totalWidth - totalWidth * (percentage / 100);
+			console.log("lastwidth---------->", lastStarWidth);
+			// Set width of the last star
+			if (percentage > 0 && percentage <= 100) {
+				ratingDiv.style.width = `${lastStarWidth}px`;
+			}
+		}
+	});
+</script>
+{% endblock %}

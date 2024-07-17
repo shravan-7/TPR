@@ -1,0 +1,354 @@
+{% extends 'user/navigation.html' %} {% block content %} {% load static %}
+{%load static %}
+<link rel="stylesheet" href="{% static 'css/preferences.css'%}" />
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+
+
+<div class="container-fluid" style="margin-top: 10px">
+	<form
+		id="recommendationForm"
+		method="post"
+		action="{% url 'preferences' %}"
+	>
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/beaches.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Beach</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Beach"
+								id="Beach"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/Church.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Church</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Church"
+								id="Church"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/zoo.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Zoo</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Zoo"
+								id="Zoo"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/temples.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Hindu temple</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Hindu temple"
+								id="Hindutemple"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/fort.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Fort</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Fort"
+								id="Fort"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/Park.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Park</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Park"
+								id="Park"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/Port.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Port</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Port"
+								id="Port"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/Museum.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Museum</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Museum"
+								id="Museum"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/Camp.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Camp</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Camp"
+								id="Camp"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/jaintemple.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Jain temple</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Jain temple"
+								id="Jaintemple"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/Island.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Island</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Island"
+								id="Island"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/Lake.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Lake</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Lake"
+								id="Lake"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/mountain.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Mountain</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Mountain"
+								id="Mountain"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+			<div class="col-md-2 mb-2">
+				<label class="card mt-3 categorycard">
+					<div class="image-container">
+						<img
+							src="{% static 'images/category_image/water_falls.jpg' %}"
+							class="card-img-top zoom-image"
+							height="180"
+							alt="image"
+						/>
+					</div>
+
+					<div class="card-body align-middle text-center">
+						<h5 class="card-title">Water Falls</h5>
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								value="Waterfalls"
+								id="Waterfalls"
+							/>
+						</div>
+					</div>
+				</label>
+			</div>
+		</div>
+	</form>
+	<div class="col-md-12 mb-4 d-flex justify-content-center">
+		<button type="submit" id="selectButton" class="recommandbtn">
+			Select Preferences and Browse
+		</button>
+	</div>
+	<h2 id="recHeading" class="heading"></h2>
+	<div class="row mt-4" id="recommand"></div>
+</div>
+{% endblock content %}

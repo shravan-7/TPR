@@ -1,0 +1,140 @@
+{% extends 'user/navigation.html' %} {% block content %} {% load static %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet" type="text/css" />
+<section id="hero" class="text-center">
+	<div class="container">
+		<h1 class="display-4 mb-4">Welcome to Coastal Karnataka</h1>
+		<p class="lead mb-4">
+			Explore the breathtaking beaches, lush forests, and vibrant culture
+		</p>
+
+		<a href="/search/" class="destinationbtn">Explore Destinations</a>
+	</div>
+</section>
+
+<section id="about" class="py-5 bg-light">
+	<div class="container">
+		<h2 class="text-center mb-4">About Coastal Karnataka</h2>
+		<div class="row">
+			<div class="col-md-6 mx-auto">
+				<p class="text-center">
+					Coastal Karnataka, also known as Karavali, is a picturesque
+					region in the southwest of Karnataka state, India. It is
+					famous for its stunning beaches, historical temples, lush
+					greenery, and delicious cuisine.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="destinations" class="py-5">
+	<div class="container">
+		<h2 class="text-center mb-4"><b>Popular Destinations</b></h2>
+		<div class="row mt-4">
+			<div class="col-md-4 mb-4">
+				<a href="/preferences/" class="card destination-card">
+					<img
+						src="{% static 'images/category_image/beaches.jpg' %}"
+						class="card-img-top"
+						alt="Beach"
+					/>
+					<div class="card-body">
+						<h5 class="card-title">Beaches</h5>
+						<p class="card-text">
+							Enjoy the sun, sand, and sea at the beautiful
+							beaches of coastal Karnataka.
+						</p>
+					</div>
+				</a>
+			</div>
+			<div class="col-md-4 mb-4">
+				<a href="/preferences/" class="card destination-card">
+					<img
+						src="{% static 'images/category_image/temples.jpg' %}"
+						class="card-img-top"
+						alt="Temple"
+					/>
+					<div class="card-body">
+						<h5 class="card-title">Temples</h5>
+						<p class="card-text">
+							Visit ancient temples and experience the rich
+							spiritual heritage of Karnataka.
+						</p>
+					</div>
+				</a>
+			</div>
+			<div class="col-md-4 mb-4">
+				<a href="/preferences/" class="card destination-card">
+					<img
+						src="{% static 'images/category_image/Island.jpg' %}"
+						class="card-img-top"
+						alt="Island"
+					/>
+					<div class="card-body">
+						<h5 class="card-title">Islands</h5>
+						<p class="card-text">
+							Explore the serene islands and experience the beauty
+							of nature.
+						</p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 mb-4">
+				<a href="/preferences/" class="card destination-card">
+					<img
+						src="{% static 'images/category_image/water_falls.jpg' %}"
+						class="card-img-top"
+						alt="Waterfalls"
+					/>
+					<div class="card-body">
+						<h5 class="card-title">Waterfalls</h5>
+						<p class="card-text">
+							Witness the majestic waterfalls amidst lush
+							greenery.
+						</p>
+					</div>
+				</a>
+			</div>
+			<div class="col-md-4 mb-4">
+				<a href="/preferences/" class="card destination-card">
+					<img
+						src="{% static 'images/category_image/mountain.jpg' %}"
+						class="card-img-top"
+						alt="Mountain"
+					/>
+					<div class="card-body">
+						<h5 class="card-title">Mountains</h5>
+						<p class="card-text">
+							Trek through the scenic mountains and enjoy
+							panoramic views.
+						</p>
+					</div>
+				</a>
+			</div>
+			<div class="col-md-4 mb-4">
+				<a href="/preferences/" class="card destination-card">
+					<img
+						src="{% static 'images/category_image/fort.jpg' %}"
+						class="card-img-top"
+						alt="Fort"
+					/>
+					<div class="card-body">
+						<h5 class="card-title">Fort</h5>
+						<p class="card-text">
+							Explore the historical forts and delve into the
+							past.
+						</p>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock content %}

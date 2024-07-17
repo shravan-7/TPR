@@ -1,0 +1,246 @@
+.description-container .full-description {
+	display: none;
+}
+
+.description-container.show-full-description .full-description {
+	display: block;
+}
+
+.categorycard {
+	border-radius: 12px;
+	overflow: hidden;
+	position: relative;
+	font-family: Arial, Helvetica, sans-serif;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	transition: all 300ms;
+}
+.categorycard:hover {
+	cursor: pointer;
+	transform: translateY(-2px);
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.article {
+	--img-scale: 1.001;
+	--title-color: black;
+	--link-icon-translate: -20px;
+	--link-icon-opacity: 0;
+	position: relative;
+	border-radius: 16px;
+	box-shadow: none;
+	background: #fff;
+	transform-origin: center;
+	transition: all 0.4s ease-in-out;
+	overflow: hidden;
+}
+
+/* basic article elements styling */
+article h6 {
+	margin: 0 0 18px 0;
+	font-family: "roboto";
+	font-size: 1.9rem;
+	letter-spacing: 0.06em;
+	color: var(--title-color);
+	transition: color 0.3s ease-out;
+}
+
+figure {
+	margin: 0;
+	padding: 0;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+}
+
+article img {
+	max-width: 100%;
+	transform-origin: center;
+	transform: scale(var(--img-scale));
+	transition: transform 0.4s ease-in-out;
+}
+
+.article-body {
+	padding: 24px;
+}
+
+article a {
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
+	color: #28666e;
+}
+
+article a:focus {
+	outline: 1px dotted #28666e;
+}
+
+article a .icon {
+	min-width: 24px;
+	width: 24px;
+	height: 24px;
+	margin-left: 5px;
+	transform: translateX(var(--link-icon-translate));
+	opacity: var(--link-icon-opacity);
+	transition: all 0.3s;
+}
+
+/* using the has() relational pseudo selector to update our custom properties */
+.article:has(:hover, :focus) {
+	--img-scale: 1.1;
+	--title-color: #28666e;
+	--link-icon-translate: 0;
+	--link-icon-opacity: 1;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+		rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+#recommand {
+	display: grid;
+	max-width: 1200px;
+	margin-inline: auto;
+	padding-inline: 24px;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 24px;
+}
+
+@media screen and (max-width: 960px) {
+	.article {
+		container: card/inline-size;
+	}
+	.article-body p {
+		display: none;
+	}
+}
+
+@container card (min-width: 380px) {
+	.article-wrapper {
+		display: grid;
+		grid-template-columns: 100px 1fr;
+		gap: 16px;
+	}
+	.article-body {
+		padding-left: 10px;
+	}
+	figure {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	figure img {
+		height: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+	}
+}
+
+.sr-only:not(:focus):not(:active) {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.favorite-icon {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: white;
+	font-size: 40px;
+	cursor: pointer;
+	z-index: 1;
+}
+.fa-heart {
+	font-size: 24px;
+	border-color: black;
+}
+
+.recommandbtn {
+	display: inline-block;
+	outline: 0;
+	text-align: center;
+	cursor: pointer;
+	padding: 17px 100px;
+	border: 0;
+	color: #fff;
+	font-size: 17.5px;
+	border: 2px solid transparent;
+	border-color: #000;
+	color: #000;
+	background: transparent;
+	font-weight: 800;
+	line-height: 30px;
+	transition: background, color 0.1s ease-in-out;
+}
+.recommandbtn:hover {
+	background-color: #000;
+	color: #fff;
+}
+.heading {
+	color: black;
+	font-weight: 900;
+}
+.rating-and-button {
+	display: flex;
+	align-items: center;
+}
+
+.rating-and-text {
+	display: flex;
+}
+
+.rating {
+	display: flex;
+}
+
+.rating-text {
+	margin-left: 10px; /* Adjust as needed */
+}
+
+
+
+.button-link {
+	margin-left: auto; /* Pushes the button to the end */
+}
+
+.rating-and-button:hover .redirect-button {
+	background-color: #ffffff; /* Change background color on hover */
+}
+
+.star {
+	color: #ffd700; /* Gold color */
+	width: 22px;
+}
+
+.redirect-button {
+	z-index: 10000;
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	background-image: url("/static/images/google-maps.png");
+	background-size: cover;
+	text-indent: -9999px;
+	transition: transform 0.3s ease, background-color 0.4s ease;
+}
+.rating {
+	font-size: 24px;
+	display: flex;
+	align-items: center;
+	width: 107px; 
+	height: 25px; 
+	overflow: hidden; 
+}
+
+.rating-valuee {
+	margin-left: auto;
+	font: 1em "roboto";
+	font-weight: bold;
+
+}

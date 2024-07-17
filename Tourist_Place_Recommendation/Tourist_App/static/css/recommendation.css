@@ -1,0 +1,46 @@
+.loading-screen {
+	position: fixed;
+	top: 4rem;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+}
+
+.spinner {
+	border: 4px solid #f3f3f3;
+	border-top: 4px solid #3498db;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+.star {
+	color: #ffd700; /* Gold color */
+	width: 22px;
+}
+
+redirect-button {
+	z-index: 10000;
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	background-image: url("/static/images/google-maps.png");
+	background-size: cover;
+	text-indent: -9999px;
+	transition: transform 0.3s ease, background-color 0.4s ease;
+}

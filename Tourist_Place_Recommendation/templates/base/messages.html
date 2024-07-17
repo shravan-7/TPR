@@ -1,0 +1,22 @@
+{% if messages %}
+{% for message in messages %}
+<div class="d-flex justify-content-center my-2">
+  <div class="alert {{ message.tags }} alert-dismissible fade show text-center w-75" id="msg" role="alert">
+    <strong>{{ message }}!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<style>
+  .message-container {
+    position: fixed;
+    bottom: 20px;
+    /* Adjust the bottom position as needed */
+    right: 40px;
+    /* Adjust the right position as needed */
+    z-index: 1599;
+    /* Ensure the button is on top of other elements */
+  }
+</style>

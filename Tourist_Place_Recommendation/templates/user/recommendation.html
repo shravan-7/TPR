@@ -1,0 +1,19 @@
+{% extends 'user/navigation.html' %} {% block content %} {% load static %}
+{%load static %}
+<link rel="stylesheet" href="{% static 'css/preferences.css'%}" />
+<link rel="stylesheet" href="{% static 'css/recommendation.css'%}" />
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+
+<div class="container-fluid" style="margin-top: 10px">
+	<div id="loadingScreen" class="loading-screen">
+		<div class="spinner"></div>
+		<p>Loading recommendations...</p>
+	</div>
+	<h2 id="recHeading" class="heading"></h2>
+	<div class="row mt-4" id="recommand"></div>
+</div>
+<script src="{% static 'js/recommendation.js' %}"></script>
+{% endblock content %}

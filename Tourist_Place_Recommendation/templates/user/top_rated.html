@@ -1,0 +1,85 @@
+{% extends 'user/navigation.html' %} {% block content %} {% load static %}
+
+<link rel="stylesheet" href="{% static 'css/toprated.css' %}" />
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+<style></style>
+
+<div class="container-fluid" style="margin-top: 10px">
+	<div class="row" id="row">
+		{% for res in data %}
+		<div class="article">
+			<article>
+				<figure>
+					<img
+						src="{% static 'images/place_image/' %}{{ res.ID }}/{{ res.ID }}c.jpg"
+						class="card-img-top"
+						alt="..."
+					/>
+					<div class="FavoriteDiv" data-id="{{ res.ID }}"></div>
+				</figure>
+				<div class="article-body">
+					<h6 class="card-title">{{ res.Name }}</h6>
+					<div class="description-container">
+						<div class="rating-and-button">
+							<div class="rating-and-text">
+								<div
+									class="rating"
+									data-rating="{{ res.Ratings }}"
+								>
+									<span class="star">&#9733;</span>
+									<span class="star">&#9733;</span>
+									<span class="star">&#9733;</span>
+									<span class="star">&#9733;</span>
+									<span class="star">&#9733;</span>
+								</div>
+								<div class="rating-text">
+									<span class="rating-valuee"
+										>{{ res.Ratings }}/5</span
+									>
+								</div>
+							</div>
+							<div class="button-link">
+								<a
+									href="{{ res.Map_link }}"
+									class="redirect-button"
+								></a>
+							</div>
+						</div>
+
+						<p class="card-text description">
+							{{ res.Description|truncatewords:30}}
+						</p>
+						<a
+							href="/getMoreDetails/{{ res.ID }}/"
+							class="read-more"
+						>
+							Read More
+							<span class="sr-only"
+								>Read more about {{ res.Name }}</span
+							>
+							<svg
+								class="icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+									clip-rule="evenodd"
+								/>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</article>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+<script src="{% static 'js/top_rated.js' %}"></script>
+
+{% endblock %}
