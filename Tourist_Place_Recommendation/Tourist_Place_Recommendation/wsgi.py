@@ -1,5 +1,5 @@
 """
-WSGI config for Tourist_Place_Recommandation project.
+WSGI config for Tourist_Place_recommendation project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,7 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Tourist_Place_Recommandation.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Tourist_Place_Recommendation.settings")
 
 application = get_wsgi_application()
-app=application
+app = application

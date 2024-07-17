@@ -25,25 +25,24 @@
 	<img src="https://img.shields.io/badge/CSS3-1572B6.svg?style=flat&logo=CSS3&logoColor=white" alt="CSS3">
 	<img src="https://img.shields.io/badge/Bootstrap-7952B3.svg?style=flat&logo=Bootstrap&logoColor=white" alt="Bootstrap">
 
-
 </p>
 </p>
 <hr>
 
 ## 🔗 Quick Links
 
-> - [📍 Overview](#-overview)
-> - [📦 Features](#-features)
-> - [📂 Repository Structure](#-repository-structure)
-> - [🧩 Modules](#-modules)
-> - [🚀 Getting Started](#-getting-started)
->   - [⚙️ Installation](#️-installation)
->   - [🤖 Running TRP](#-running-TRP)
->   - [🧪 Tests](#-tests)
-> - [🛠 Project Roadmap](#-project-roadmap)
-> - [🤝 Contributing](#-contributing)
-> - [📄 License](#-license)
-> - [👏 Acknowledgments](#-acknowledgments)
+> -   [📍 Overview](#-overview)
+> -   [📦 Features](#-features)
+> -   [📂 Repository Structure](#-repository-structure)
+> -   [🧩 Modules](#-modules)
+> -   [🚀 Getting Started](#-getting-started)
+>     -   [⚙️ Installation](#️-installation)
+>     -   [🤖 Running TRP](#-running-TRP)
+>     -   [🧪 Tests](#-tests)
+> -   [🛠 Project Roadmap](#-project-roadmap)
+> -   [🤝 Contributing](#-contributing)
+> -   [📄 License](#-license)
+> -   [👏 Acknowledgments](#-acknowledgments)
 
 ---
 
@@ -55,13 +54,14 @@ Welcome to the Tourist Place Recommendation (TRP) project! This platform leverag
 
 ## 📦 Features
 
-- **Personalized Recommendations:** Get travel suggestions tailored to your interests.
-- **User Preferences:** Save and manage your favorite places.
-- **Detailed Place Information:** Access comprehensive details about each recommended location.
-- **Interactive UI:** Enjoy a user-friendly interface for seamless navigation.
-- **Data-Driven Insights:** Recommendations are based on extensive datasets and user reviews.
+-   **Personalized Recommendations:** Get travel suggestions tailored to your interests.
+-   **User Preferences:** Save and manage your favorite places.
+-   **Detailed Place Information:** Access comprehensive details about each recommended location.
+-   **Interactive UI:** Enjoy a user-friendly interface for seamless navigation.
+-   **Data-Driven Insights:** Recommendations are based on extensive datasets and user reviews.
 
 ---
+
 ## 📂 Repository Structure
 
 ```sh
@@ -81,7 +81,7 @@ Welcome to the Tourist Place Recommendation (TRP) project! This platform leverag
         │   ├── read_dataset.py
         │   ├── recommend.py
         │   └── views.py
-        ├── Tourist_Place_Recommandation
+        ├── Tourist_Place_recommendation
         │   ├── asgi.py
         │   ├── settings.py
         │   ├── urls.py
@@ -96,59 +96,60 @@ Welcome to the Tourist Place Recommendation (TRP) project! This platform leverag
         ├── review_dataset.csv
         └── user_ratings5.csv
 ```
+
 <hr>
 
 ## 🧩 Modules
 
 <details closed><summary>Tourist_Place_Recommendation</summary>
 
-| File                                                                                                   | Summary                                                                                   |
-| ---                                                                                                    | ---                                                                                       |
-| [manage.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/manage.py)       | Django's command-line utility for administrative tasks in the Tourist Place Recommendation project. |
+| File                                                                                             | Summary                                                                                             |
+| ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| [manage.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/manage.py) | Django's command-line utility for administrative tasks in the Tourist Place Recommendation project. |
 
 </details>
 
 <details closed><summary>Tourist_Place_Recommendation.templates.base</summary>
 
-| File                                                                                                                    | Summary                                                                    |
-| ---                                                                                                                     | ---                                                                        |
+| File                                                                                                                    | Summary                                                                   |
+| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | [messages.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/base/messages.html) | HTML template for displaying messages (e.g., success, error) to the user. |
 
 </details>
 
 <details closed><summary>Tourist_Place_Recommendation.templates.user</summary>
 
-| File                                                                                                                                  | Summary                                                                         |
-| ---                                                                                                                                   | ---                                                                             |
-| [recommendation.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/recommendation.html)   | HTML template for displaying personalized tourist place recommendations.        |
-| [top_rated.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/top_rated.html)             | HTML template for showcasing top-rated tourist places.                          |
-| [login.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/login.html)                     | HTML template for user login page.                                              |
-| [profile.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/profile.html)                 | HTML template for displaying and editing user profile information.              |
-| [preferences.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/preferences.html)         | HTML template for setting user preferences for tourist place recommendations.  |
+| File                                                                                                                                  | Summary                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| [recommendation.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/recommendation.html)   | HTML template for displaying personalized tourist place recommendations.          |
+| [top_rated.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/top_rated.html)             | HTML template for showcasing top-rated tourist places.                            |
+| [login.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/login.html)                     | HTML template for user login page.                                                |
+| [profile.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/profile.html)                 | HTML template for displaying and editing user profile information.                |
+| [preferences.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/preferences.html)         | HTML template for setting user preferences for tourist place recommendations.     |
 | [place_details.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/place_details.html)     | HTML template for displaying detailed information about a specific tourist place. |
-| [navigation.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/navigation.html)           | HTML template for the navigation menu.                                          |
-| [registration.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/registration.html)       | HTML template for user registration page.                                       |
-| [home.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/home.html)                       | HTML template for the home page of the application.                             |
-| [search.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/search.html)                   | HTML template for the search functionality of tourist places.                   |
-| [favorite_places.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/favorite_places.html) | HTML template for displaying user's favorite tourist places.                    |
+| [navigation.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/navigation.html)           | HTML template for the navigation menu.                                            |
+| [registration.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/registration.html)       | HTML template for user registration page.                                         |
+| [home.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/home.html)                       | HTML template for the home page of the application.                               |
+| [search.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/search.html)                   | HTML template for the search functionality of tourist places.                     |
+| [favorite_places.html](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/templates/user/favorite_places.html) | HTML template for displaying user's favorite tourist places.                      |
 
 </details>
 
-<details closed><summary>Tourist_Place_Recommendation.Tourist_Place_Recommandation</summary>
+<details closed><summary>Tourist_Place_Recommendation.Tourist_Place_recommendation</summary>
 
-| File                                                                                                                              | Summary                                                                                |
-| ---                                                                                                                               | ---                                                                                    |
-| [asgi.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_Place_Recommandation/asgi.py)         | ASGI configuration for the Tourist Place Recommendation project.                       |
-| [wsgi.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_Place_Recommandation/wsgi.py)         | WSGI configuration for the Tourist Place Recommendation project.                       |
-| [urls.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_Place_Recommandation/urls.py)         | URL configuration for the Tourist Place Recommendation project.                        |
-| [settings.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_Place_Recommandation/settings.py) | Django settings for the Tourist Place Recommendation project.                          |
+| File                                                                                                                              | Summary                                                          |
+| --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| [asgi.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_Place_recommendation/asgi.py)         | ASGI configuration for the Tourist Place Recommendation project. |
+| [wsgi.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_Place_recommendation/wsgi.py)         | WSGI configuration for the Tourist Place Recommendation project. |
+| [urls.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_Place_recommendation/urls.py)         | URL configuration for the Tourist Place Recommendation project.  |
+| [settings.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_Place_recommendation/settings.py) | Django settings for the Tourist Place Recommendation project.    |
 
 </details>
 
 <details closed><summary>Tourist_Place_Recommendation.Tourist_App</summary>
 
 | File                                                                                                                     | Summary                                                                              |
-| ---                                                                                                                      | ---                                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | [admin.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_App/admin.py)               | Django admin configuration for the Tourist_App models.                               |
 | [apps.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_App/apps.py)                 | Django app configuration for the Tourist_App.                                        |
 | [rawQuery.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_App/rawQuery.py)         | Module for executing raw SQL queries for the recommendation system.                  |
@@ -161,22 +162,22 @@ Welcome to the Tourist Place Recommendation (TRP) project! This platform leverag
 
 <details closed><summary>Tourist_Place_Recommendation.Tourist_App.migrations</summary>
 
-| File                                                                                                                                                        | Summary                                                                          |
-| ---                                                                                                                                                         | ---                                                                              |
-| [0001_initial.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_App/migrations/0001_initial.py)                         | Initial database migration for creating the necessary tables.                    |
-| [0002_user_location_prefs.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_App/migrations/0002_user_location_prefs.py) | Migration for adding user location preferences to the User model.                |
+| File                                                                                                                                                        | Summary                                                           |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| [0001_initial.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_App/migrations/0001_initial.py)                         | Initial database migration for creating the necessary tables.     |
+| [0002_user_location_prefs.py](https://github.com/shravan-7/TRP/blob/master/Tourist_Place_Recommendation/Tourist_App/migrations/0002_user_location_prefs.py) | Migration for adding user location preferences to the User model. |
 
 </details>
 <hr>
 
 ## 🚀 Getting Started
 
-***Requirements***
+**_Requirements_**
 
 Ensure you have the following dependencies installed on your system:
 
-* **Python**: `version 3.x`
-* **Django**: `version 3.x`
+-   **Python**: `version 3.x`
+-   **Django**: `version 3.x`
 
 ### ⚙️ Installation
 
@@ -228,11 +229,11 @@ Ensure you have the following dependencies installed on your system:
 
 ## 🛠 Project Roadmap
 
-- Implement user authentication
-- Develop recommendation algorithm
-- Add support for more languages
-- Integrate with external travel APIs
-- Improve UI/UX for mobile devices
+-   Implement user authentication
+-   Develop recommendation algorithm
+-   Add support for more languages
+-   Integrate with external travel APIs
+-   Improve UI/UX for mobile devices
 
 ## 🤝 Contributing
 
@@ -250,8 +251,8 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 
 ## 👏 Acknowledgments
 
-- Thanks to the open-source community for the tools and libraries used in this project.
-- Special thanks to all contributors who helped improve the platform.
+-   Thanks to the open-source community for the tools and libraries used in this project.
+-   Special thanks to all contributors who helped improve the platform.
 
 <p align="center">
 	Made with 💖 by Shravan Kumar
