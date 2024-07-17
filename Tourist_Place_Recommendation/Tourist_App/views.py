@@ -16,7 +16,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password, check_password
-import pyrebase as pyrebase
+# import pyrebase as pyrebase
 import os
 
 
