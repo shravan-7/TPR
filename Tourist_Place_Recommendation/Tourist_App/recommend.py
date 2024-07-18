@@ -1,7 +1,11 @@
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import MultiLabelBinarizer
+
+import numpy as np
+np.random.seed(0)  # or any other seed value
 from surprise import Reader, Dataset, SVD
+
 
 def recommend(user_data):
     places_df = pd.read_csv('replaced_locations.csv')
