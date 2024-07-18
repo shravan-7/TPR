@@ -24,7 +24,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path("", home, name="index"),
@@ -46,9 +46,9 @@ urlpatterns = [
     path("getMoreDetails/<int:id>/", getMoreDetails, name="getMoreDetails"),
     path("search_places/", search_places, name="search_places"),
     path("topRated/", topRated, name="topRated"),
-    path(
+path(
         "favicon.ico",
-        RedirectView.as_view(url=staticfiles_storage.url("images/favicon.ico")),
+        RedirectView.as_view(url=staticfiles_storage.url("Tourist_App/images/favicon.ico")),
     ),
     path("get_user_favorites/", get_user_favorites, name="get_user_favorites"),
     path("add_favorite/", add_favorite, name="add_favorite"),
@@ -58,3 +58,4 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns+=staticfiles_urlpatterns()

@@ -188,15 +188,13 @@ APPEND_SLASH = False
 # STATICFILES_DIRS = [BASE_DIR / "Tourist_App" / "static"]
 # # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build" "static")
 # STATIC_ROOT = BASE_DIR / "staticfiles_build"
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'file')
+    os.path.join(BASE_DIR, 'Tourist_App', 'static'),
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'Tourist_App/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Default primary key field type
