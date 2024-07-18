@@ -128,7 +128,6 @@ DATABASES = {
         ssl_require=True
     )
 }
-
 # Set the charset option
 DATABASES["default"]["OPTIONS"]["charset"] = "utf8mb4"
 
@@ -194,7 +193,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Tourist_App', 'static'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 
 
 # Default primary key field type
