@@ -193,8 +193,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Tourist_App', 'static'),
 ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+# STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 
 
 # Default primary key field type
