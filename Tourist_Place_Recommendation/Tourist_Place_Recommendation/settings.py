@@ -33,7 +33,7 @@ AUTH_USER_MODEL = "Tourist_App.User"
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG","False").lower()== "True"
+DEBUG = os.getenv("DEBUG", "False").lower() == "True"
 
 # ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", ".vercel.app", ".show.sh",".tpr-azure.vercel.app"]
 ALLOWED_HOSTS = ["*"]
@@ -53,10 +53,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    
-    
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -64,7 +62,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 
 ROOT_URLCONF = "Tourist_Place_Recommendation.urls"
@@ -124,17 +122,15 @@ WSGI_APPLICATION = "Tourist_Place_Recommendation.wsgi.application"
 # DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.environ.get("MYSQL_ATTR_SSL_CA")}
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"), conn_max_age=600, ssl_require=True
     )
 }
 # Set the charset option
 DATABASES["default"]["OPTIONS"]["charset"] = "utf8mb4"
 
 # Remove the sslmode option if it exists
-if 'sslmode' in DATABASES["default"]["OPTIONS"]:
+if "sslmode" in DATABASES["default"]["OPTIONS"]:
     del DATABASES["default"]["OPTIONS"]["sslmode"]
 
 # Add SSL options for MySQL using the MYSQL_ATTR_SSL_CA environment variable
@@ -197,14 +193,14 @@ APPEND_SLASH = False
 # ]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 # # STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'Tourist_App', 'static'),
+    os.path.join(BASE_DIR, "Tourist_App", "static"),
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

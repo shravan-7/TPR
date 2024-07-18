@@ -46,10 +46,7 @@ urlpatterns = [
     path("getMoreDetails/<int:id>/", getMoreDetails, name="getMoreDetails"),
     path("search_places/", search_places, name="search_places"),
     path("topRated/", topRated, name="topRated"),
-path(
-        "favicon.ico",
-        RedirectView.as_view(url=staticfiles_storage.url("Tourist_App/images/favicon.ico")),
-    ),
+path("favicon.ico", RedirectView.as_view(url=staticfiles_storage.url("images/favicon.ico"))),
     path("get_user_favorites/", get_user_favorites, name="get_user_favorites"),
     path("add_favorite/", add_favorite, name="add_favorite"),
     path("remove_favorite/", remove_favorite, name="remove_favorite"),
