@@ -1,4 +1,5 @@
-/staticfiles/
+/staticfiles/*
+!/staticfiles/.gitkeep
 
 # Django #
 *.log
