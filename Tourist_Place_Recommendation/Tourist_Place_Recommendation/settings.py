@@ -30,10 +30,10 @@ AUTH_USER_MODEL = "Tourist_App.User"
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = "django-insecure-n=uge+d#zm1jf!&hl@0+opg(%vbmdlrm=o8xz^hmjf6m13kre6"
 # SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-n=uge+d#zm1jf!&hl@0+opg(%vbmdlrm=o8xz^hmjf6m13kre6')
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG","False").lower()== "True"
+DEBUG = os.getenv("DEBUG","False").lower()== "True"
 
 # ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", ".vercel.app", ".show.sh",".tpr-azure.vercel.app"]
 ALLOWED_HOSTS = ["*"]
@@ -110,18 +110,34 @@ WSGI_APPLICATION = "Tourist_Place_Recommendation.wsgi.application"
 #         'PORT': os.getenv('DB_PORT', '33333')
 #     }
 # }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+# DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES["default"]["OPTIONS"]["charset"] = "utf8mb4"
+# del DATABASES["default"]["OPTIONS"]["sslmode"]
+# DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.environ.get("MYSQL_ATTR_SSL_CA")}
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
-DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+# Set the charset option
 DATABASES["default"]["OPTIONS"]["charset"] = "utf8mb4"
-del DATABASES["default"]["OPTIONS"]["sslmode"]
-DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.environ.get("MYSQL_ATTR_SSL_CA")}
 
+# Remove the sslmode option if it exists
+if 'sslmode' in DATABASES["default"]["OPTIONS"]:
+    del DATABASES["default"]["OPTIONS"]["sslmode"]
 
+# Add SSL options for MySQL using the MYSQL_ATTR_SSL_CA environment variable
+DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.getenv("MYSQL_ATTR_SSL_CA")}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -164,14 +180,24 @@ APPEND_SLASH = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "static/"
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), os.path.join(BASE_DIR, "file")]
-# STATICFILES_DIRS = [BASE_DIR / "static"]
-STATICFILES_DIRS = [BASE_DIR / "Tourist_App" / "static"]
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build" "static")
-STATIC_ROOT = BASE_DIR / "staticfiles_build"
+# STATIC_URL = "static/"
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# # STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), os.path.join(BASE_DIR, "file")]
+# # STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATICFILES_DIRS = [BASE_DIR / "Tourist_App" / "static"]
+# # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build" "static")
+# STATIC_ROOT = BASE_DIR / "staticfiles_build"
+STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'file')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'Tourist_App/static')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
