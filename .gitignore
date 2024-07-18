@@ -1,5 +1,5 @@
-/staticfiles/*
-!/staticfiles/.gitkeep
+Tourist_Place_Recommendation/staticfiles/*
+!Tourist_Place_Recommendation/staticfiles/.gitkeep
 
 # Django #
 *.log
