@@ -29,12 +29,14 @@ AUTH_USER_MODEL = "Tourist_App.User"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = "django-insecure-n=uge+d#zm1jf!&hl@0+opg(%vbmdlrm=o8xz^hmjf6m13kre6"
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-n=uge+d#zm1jf!&hl@0+opg(%vbmdlrm=o8xz^hmjf6m13kre6')
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-n=uge+d#zm1jf!&hl@0+opg(%vbmdlrm=o8xz^hmjf6m13kre6')
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG","False").lower()== "True"
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", ".vercel.app", ".show.sh",".tpr-azure.vercel.app"]
+# ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", ".vercel.app", ".show.sh",".tpr-azure.vercel.app"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
