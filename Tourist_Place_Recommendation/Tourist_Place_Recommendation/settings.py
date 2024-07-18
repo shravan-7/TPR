@@ -64,6 +64,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 ROOT_URLCONF = "Tourist_Place_Recommendation.urls"
 
@@ -187,15 +189,22 @@ APPEND_SLASH = False
 # STATICFILES_DIRS = [BASE_DIR / "Tourist_App" / "static"]
 # # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build" "static")
 # STATIC_ROOT = BASE_DIR / "staticfiles_build"
+# STATIC_URL = '/static/'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'Tourist_App', 'static'),
+# ]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+# # STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Tourist_App', 'static'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-# STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -1,0 +1,11 @@
+[build]
+builder = "nixpacks"
+buildCommand = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+
+[deploy]
+startCommand = "gunicorn Tourist_Place_Recommendation.wsgi:application"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+
+[env]
+PYTHON_VERSION = "3.12.3"
