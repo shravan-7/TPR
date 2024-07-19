@@ -1,1 +1,1 @@
-web: gunicorn Tourist_Place_Recommendation.wsgi:application --log-file -
+web: gunicorn Tourist_Place_Recommendation.wsgi:application --log-file - --log-level debug
