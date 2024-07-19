@@ -1,4 +1,4 @@
-Copy[build]
+[build]
 builder = "nixpacks"
 buildCommand = """
 echo "$MYSQL_ATTR_SSL_CA" > /app/ca.pem
