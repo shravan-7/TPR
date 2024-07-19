@@ -23,8 +23,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 logger = logging.getLogger(__name__)
 logger.debug("Starting application...")
-logger.debug(f"Database URL: {os.getenv('DATABASE_URL')}")
-logger.debug(f"SSL cert file exists: {os.path.exists('/app/ca.pem')}")
+# logger.debug(f"Database URL: {os.getenv('DATABASE_URL')}")
+# logger.debug(f"SSL cert file exists: {os.path.exists('/app/ca.pem')}")
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -36,7 +36,6 @@ AUTH_USER_MODEL = "Tourist_App.User"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = "django-insecure-n=uge+d#zm1jf!&hl@0+opg(%vbmdlrm=o8xz^hmjf6m13kre6"
-# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-n=uge+d#zm1jf!&hl@0+opg(%vbmdlrm=o8xz^hmjf6m13kre6')
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -71,33 +70,10 @@ MIDDLEWARE = [
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 WHITENOISE_MANIFEST_STRICT = False
-CSRF_TRUSTED_ORIGINS = ['https://tpr-production.up.railway.app']
-# CSRF_TRUSTED_ORIGINS = ["https://tpr-production.up.railway.app"]
+
+CSRF_TRUSTED_ORIGINS = ["https://tpr-production.up.railway.app"]
 ROOT_URLCONF = "Tourist_Place_Recommendation.urls"
 
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-
-# After each major configuration section
-
-
-# etc.
-
-# LOGGING = {
-#     "version": 1,
-#     "disable_existing_loggers": False,
-#     "handlers": {
-#         "console": {
-#             "class": "logging.StreamHandler",
-#         },
-#     },
-#     "root": {
-#         "handlers": ["console"],
-#         "level": "INFO",  # Change this to INFO
-#     },
-# }
 
 TEMPLATES = [
     {
@@ -121,6 +97,7 @@ WSGI_APPLICATION = "Tourist_Place_Recommendation.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+#Database using local mysql
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -132,27 +109,10 @@ WSGI_APPLICATION = "Tourist_Place_Recommendation.wsgi.application"
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.getenv('DB_NAME', 'tourist_place_db'),
-#         'USER': os.getenv('DB_USER', 'root'),
-#         'PASSWORD': os.getenv('DB_PASSWORD', 'root'),
-#         'HOST': os.getenv('DB_HOST', 'localhost'),
-#         'PORT': os.getenv('DB_PORT', '33333')
-#     }
-# }
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-# DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-# DATABASES["default"]["OPTIONS"]["charset"] = "utf8mb4"
-# del DATABASES["default"]["OPTIONS"]["sslmode"]
-# DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.environ.get("MYSQL_ATTR_SSL_CA")}
 
+
+
+#Database for Develpment
 # DATABASES = {
 #     "default": dj_database_url.config(
 #         default=os.getenv("DATABASE_URL"),
@@ -170,20 +130,8 @@ WSGI_APPLICATION = "Tourist_Place_Recommendation.wsgi.application"
 # # Add SSL options for MySQL using the MYSQL_ATTR_SSL_CA environment variable
 # DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.getenv("MYSQL_ATTR_SSL_CA")}
 
-# DATABASES = {
-#     "default": dj_database_url.config(
-#         default=os.getenv("DATABASE_URL"),
-#         conn_max_age=600,
-#         ssl_require=True
-#     )
-# }
 
-# # Update SSL options
-# if os.path.exists("/app/ca.pem"):
-#     DATABASES["default"]["OPTIONS"] = {
-#         "ssl": {"ca": "/app/ca.pem"}
-#     }
-
+#Database for Production
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
@@ -242,22 +190,7 @@ APPEND_SLASH = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-# STATIC_URL = "static/"
-# MEDIA_URL = "/media/"
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-# # STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), os.path.join(BASE_DIR, "file")]
-# # STATICFILES_DIRS = [BASE_DIR / "static"]
-# STATICFILES_DIRS = [BASE_DIR / "Tourist_App" / "static"]
-# # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build" "static")
-# STATIC_ROOT = BASE_DIR / "staticfiles_build"
-# STATIC_URL = '/static/'
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'Tourist_App', 'static'),
-# ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-# # STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [

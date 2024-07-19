@@ -89,6 +89,11 @@ class Dataset(models.Model):
     sentiment = models.IntegerField(blank=False, default=1)
 
 
+class DatasetLoaded(models.Model):
+    is_loaded = models.BooleanField(default=False)
+    loaded_at = models.DateTimeField(auto_now_add=True)
+
+
 class Feedback(models.Model):
     class Meta:
         db_table = "feedback"

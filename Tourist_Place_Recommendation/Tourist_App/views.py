@@ -16,7 +16,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password, check_password
-# import pyrebase as pyrebase
+
 import os
 
 
@@ -121,7 +121,9 @@ def userlogin(request):
         login(request, user)
         request.session["userid"] = user.id  # type: ignore
         request.session["userName"] = user.name
-        loadData(request)
+        # Check if the dataset needs to be loaded (only for admin users, for example)
+        if user.is_superuser and not DatasetLoaded.objects.filter(is_loaded=True).exists():
+            loadData(request)
         messages.success(request, "Login successfully...")
         return redirect("home")
     else:
@@ -208,7 +210,6 @@ def search(request):
 
 
 @login_required(login_url="/user/")
-
 def editProfile(request, id):
     user = User.objects.get(id=id)
     if request.method == "POST":
@@ -243,23 +244,28 @@ def editProfile(request, id):
             messages.success(request, "Profile updated successfully.")
         else:
             messages.error(request, "Current password is incorrect.")
-        
+
         return render(request, "user/profile.html", {"user": user})
     else:
         return render(request, "user/profile.html", {"user": user})
+
 
 def feedback(request):
     return render(request, "user/ratings.html")
 
 
 def loadData(request):
-    result = read_dataset.import_csv_data()
-    if result:
-        # messages.success(request, 'Data Loaded successfully...')
-        response_data = {"closeModal": True}
+    if not DatasetLoaded.objects.filter(is_loaded=True).exists():
+        result = read_dataset.import_csv_data()
+        if result:
+            messages.success(request, 'Data Loaded successfully...')
+            response_data = {"closeModal": True}
+        else:
+            messages.error(request, 'Data Loading failed...')
+            response_data = {"closeModal": False}
     else:
-        # messages.success(request, 'Data Loaded failed...')
-        response_data = {"closeModal": False}
+        messages.info(request, 'Data already loaded.')
+        response_data = {"closeModal": True}
 
     return JsonResponse(response_data)
 
@@ -310,9 +316,9 @@ def getMoreDetails(request, id):
             "rating_count": json.dumps(rating_count),
             "review_details": json.dumps(review_details),
             "Isreviewed": Isreviewed,
-            
         }
     )
+
 
 def search_places(request):
     query = request.GET.get("query", "")
