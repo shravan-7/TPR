@@ -18,6 +18,12 @@ import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv()
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+# At the beginning of settings.py
+logger = logging.getLogger(__name__)
+logger.debug("Starting application...")
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -72,20 +78,24 @@ ROOT_URLCONF = "Tourist_Place_Recommendation.urls"
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
 
+# After each major configuration section
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-        },
-    },
-    "root": {
-        "handlers": ["console"],
-        "level": "INFO",  # Change this to INFO
-    },
-}
+
+# etc.
+
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "console": {
+#             "class": "logging.StreamHandler",
+#         },
+#     },
+#     "root": {
+#         "handlers": ["console"],
+#         "level": "INFO",  # Change this to INFO
+#     },
+# }
 
 TEMPLATES = [
     {
@@ -143,7 +153,9 @@ WSGI_APPLICATION = "Tourist_Place_Recommendation.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL"), conn_max_age=600, ssl_require=True
+        default=os.getenv("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
     )
 }
 # Set the charset option
@@ -155,6 +167,7 @@ if "sslmode" in DATABASES["default"]["OPTIONS"]:
 
 # Add SSL options for MySQL using the MYSQL_ATTR_SSL_CA environment variable
 DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.getenv("MYSQL_ATTR_SSL_CA")}
+logger.debug("Database configuration complete")
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -218,6 +231,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Tourist_App', 'static'),
 ]
+logger.debug("Static files configuration complete")
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
