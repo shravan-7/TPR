@@ -170,18 +170,34 @@ WSGI_APPLICATION = "Tourist_Place_Recommendation.wsgi.application"
 # # Add SSL options for MySQL using the MYSQL_ATTR_SSL_CA environment variable
 # DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.getenv("MYSQL_ATTR_SSL_CA")}
 
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.getenv("DATABASE_URL"),
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
+
+# # Update SSL options
+# if os.path.exists("/app/ca.pem"):
+#     DATABASES["default"]["OPTIONS"] = {
+#         "ssl": {"ca": "/app/ca.pem"}
+#     }
+
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
         conn_max_age=600,
         ssl_require=True
     )
 }
 
-# Update SSL options
 if os.path.exists("/app/ca.pem"):
-    DATABASES["default"]["OPTIONS"] = {
-        "ssl": {"ca": "/app/ca.pem"}
+    DATABASES['default']['OPTIONS'] = {
+        'ssl': {'ca': '/app/ca.pem'},
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        'charset': 'utf8mb4',
+        'connect_timeout': 60,
     }
 logger.debug("Database configuration complete")
 # Password validation

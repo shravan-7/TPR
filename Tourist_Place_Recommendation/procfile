@@ -1,1 +1,1 @@
-web: gunicorn Tourist_Place_Recommendation.wsgi:application
+web: gunicorn Tourist_Place_Recommendation.wsgi:application --timeout 120

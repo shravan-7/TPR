@@ -27,12 +27,12 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.http import HttpResponse
 
-def healthcheck(request):
-    return HttpResponse("OK")
+# def healthcheck(request):
+#     return HttpResponse("OK")
 
 urlpatterns = [
-	path("", healthcheck, name="healthcheck"),
-    path("home/", home, name="home"),
+	# path("", healthcheck, name="healthcheck"),
+    path("", home, name="index"),
     path("user/", user),
     path("registration/", registration, name="reg"),
     path("saveUser/", saveUser),  # type: ignore
