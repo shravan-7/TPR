@@ -25,14 +25,16 @@ from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.http import HttpResponse
+
 
 def healthcheck(request):
     return HttpResponse("OK")
 
 urlpatterns = [
+    path('', healthcheck),
     path("", home, name="index"),
     path("user/", user),
-    path('', healthcheck),
     path("registration/", registration, name="reg"),
     path("saveUser/", saveUser),  # type: ignore
     path("userlogin/", userlogin, name="userLogin"),  # type: ignore

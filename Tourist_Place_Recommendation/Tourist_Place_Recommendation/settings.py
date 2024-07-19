@@ -64,7 +64,7 @@ MIDDLEWARE = [
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 WHITENOISE_MANIFEST_STRICT = False
-CSRF_TRUSTED_ORIGINS = ["https://tpr-production.up.railway.app"]
+# CSRF_TRUSTED_ORIGINS = ["https://tpr-production.up.railway.app"]
 ROOT_URLCONF = "Tourist_Place_Recommendation.urls"
 
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -213,12 +213,11 @@ APPEND_SLASH = False
 # ]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 # # STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "Tourist_App", "static"),
+    os.path.join(BASE_DIR, 'Tourist_App', 'static'),
 ]
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
