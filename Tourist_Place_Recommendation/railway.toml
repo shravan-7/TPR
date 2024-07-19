@@ -9,3 +9,8 @@ healthcheckTimeout = 100
 
 [env]
 PYTHON_VERSION = "3.12.3"
+PYTHONUNBUFFERED = "1"
+DJANGO_SETTINGS_MODULE = "Tourist_Place_Recommendation.settings"
+
+[[statics]]
+gzip = true
