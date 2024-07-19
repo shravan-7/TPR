@@ -42,7 +42,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "False").lower() == "True"
 
 # ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", ".vercel.app", ".show.sh",".tpr-azure.vercel.app"]
-ALLOWED_HOSTS = ['tpr-production.up.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['tpr.up.railway.app', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -71,7 +71,7 @@ MIDDLEWARE = [
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 WHITENOISE_MANIFEST_STRICT = False
 
-CSRF_TRUSTED_ORIGINS = ["https://tpr-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://tpr.up.railway.app"]
 ROOT_URLCONF = "Tourist_Place_Recommendation.urls"
 
 
