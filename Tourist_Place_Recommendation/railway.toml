@@ -1,10 +1,15 @@
-[build]
+Copy[build]
 builder = "nixpacks"
-buildCommand = "pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput"
+buildCommand = """
+echo "$MYSQL_ATTR_SSL_CA" > /app/ca.pem
+pip install -r requirements.txt
+python manage.py collectstatic --noinput
+"""
 
 [deploy]
-healthcheckPath = "/"
-healthcheckTimeout = 300  # Increase timeout to 5 minutes
+startCommand = "python manage.py migrate && gunicorn Tourist_Place_Recommendation.wsgi:application"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
 
 [env]
 PYTHON_VERSION = "3.12.3"

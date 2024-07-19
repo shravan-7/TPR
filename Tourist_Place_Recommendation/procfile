@@ -1,1 +1,0 @@
-web: gunicorn Tourist_Place_Recommendation.wsgi:application --workers 4 --timeout 120 --log-file - --log-level debug

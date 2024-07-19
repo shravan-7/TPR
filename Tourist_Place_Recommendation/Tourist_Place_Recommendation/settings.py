@@ -21,9 +21,10 @@ load_dotenv()
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-# At the beginning of settings.py
 logger = logging.getLogger(__name__)
 logger.debug("Starting application...")
+logger.debug(f"Database URL: {os.getenv('DATABASE_URL')}")
+logger.debug(f"SSL cert file exists: {os.path.exists('/app/ca.pem')}")
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,8 +43,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "False").lower() == "True"
 
 # ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", ".vercel.app", ".show.sh",".tpr-azure.vercel.app"]
-ALLOWED_HOSTS = ["tpr-production.up.railway.app", "localhost", "127.0.0.1"]
-
+ALLOWED_HOSTS = ['tpr-production.up.railway.app', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -68,8 +68,10 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 WHITENOISE_MANIFEST_STRICT = False
+CSRF_TRUSTED_ORIGINS = ['https://tpr-production.up.railway.app']
 # CSRF_TRUSTED_ORIGINS = ["https://tpr-production.up.railway.app"]
 ROOT_URLCONF = "Tourist_Place_Recommendation.urls"
 
@@ -151,6 +153,23 @@ WSGI_APPLICATION = "Tourist_Place_Recommendation.wsgi.application"
 # del DATABASES["default"]["OPTIONS"]["sslmode"]
 # DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.environ.get("MYSQL_ATTR_SSL_CA")}
 
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.getenv("DATABASE_URL"),
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
+# # Set the charset option
+# DATABASES["default"]["OPTIONS"]["charset"] = "utf8mb4"
+
+# # Remove the sslmode option if it exists
+# if "sslmode" in DATABASES["default"]["OPTIONS"]:
+#     del DATABASES["default"]["OPTIONS"]["sslmode"]
+
+# # Add SSL options for MySQL using the MYSQL_ATTR_SSL_CA environment variable
+# DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.getenv("MYSQL_ATTR_SSL_CA")}
+
 DATABASES = {
     "default": dj_database_url.config(
         default=os.getenv("DATABASE_URL"),
@@ -158,15 +177,12 @@ DATABASES = {
         ssl_require=True
     )
 }
-# Set the charset option
-DATABASES["default"]["OPTIONS"]["charset"] = "utf8mb4"
 
-# Remove the sslmode option if it exists
-if "sslmode" in DATABASES["default"]["OPTIONS"]:
-    del DATABASES["default"]["OPTIONS"]["sslmode"]
-
-# Add SSL options for MySQL using the MYSQL_ATTR_SSL_CA environment variable
-DATABASES["default"]["OPTIONS"]["ssl"] = {"ca": os.getenv("MYSQL_ATTR_SSL_CA")}
+# Update SSL options
+if os.path.exists("/app/ca.pem"):
+    DATABASES["default"]["OPTIONS"] = {
+        "ssl": {"ca": "/app/ca.pem"}
+    }
 logger.debug("Database configuration complete")
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
