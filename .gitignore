@@ -4,6 +4,7 @@ Tourist_Place_Recommendation/staticfiles/*
 # Except the .gitkeep file
 !Tourist_Place_Recommendation/staticfiles/.gitkeep
 
+.vscode
 
 # Django #
 *.log
