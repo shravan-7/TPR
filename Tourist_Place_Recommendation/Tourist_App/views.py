@@ -163,30 +163,19 @@ def get_recommendation(request):
         user = get_object_or_404(User, pk=user_id)
         user_ratings = Review.objects.filter(user=user)
         user_ratings_with_place_ids = user_ratings.values("place_id", "rating")
-        place_ids = []
-        ratings = []
-        for item in user_ratings_with_place_ids:
-            print("item", item)
-            place_ids.append(item["place_id"])
-            ratings.append(item["rating"])
-        print("test", str(user.category_prefs))
-        print("test2", str(user.location_prefs))
+
         new_user_data = {
-            "ID": place_ids,
-            "Place_Ratings": ratings,
+            "user_id": user_id,
+            "place_ratings": {item["place_id"]: item["rating"] for item in user_ratings_with_place_ids},
             "category_preferences": ast.literal_eval(user.category_prefs),
             "location_preferences": ast.literal_eval(user.location_prefs),
         }
-        print(new_user_data)
-        print("hello")
-        reclist = recommend(new_user_data)
-        print("bye")
 
-        # data = rawQuery.get_data_test(reclist)
+        reclist = recommend(new_user_data)
+
         data = []
-        for i in reclist:
-            data += rawQuery.get_data_test(i)
-        # print(data)
+        for place_name in reclist:
+            data += rawQuery.get_data_test(place_name)
 
         return JsonResponse(data, safe=False)
 
