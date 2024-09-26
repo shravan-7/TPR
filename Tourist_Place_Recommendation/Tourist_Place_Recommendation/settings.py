@@ -93,11 +93,16 @@ DATABASES = {
     )
 }
 
-# Set the charset option
+# Set the charset option and handle SSL configuration
 DATABASES["default"]["OPTIONS"] = {
     "charset": "utf8mb4",
-    "ssl": {"ca": config('MYSQL_ATTR_SSL_CA', default=None)}
 }
+
+# Only add SSL configuration if MYSQL_ATTR_SSL_CA is set
+if config('MYSQL_ATTR_SSL_CA', default=None):
+    DATABASES["default"]["OPTIONS"]["ssl"] = {
+        "ca": config('MYSQL_ATTR_SSL_CA')
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
