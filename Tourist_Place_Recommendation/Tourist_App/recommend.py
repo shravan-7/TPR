@@ -2,17 +2,22 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.impute import SimpleImputer
+from scipy.sparse import csr_matrix
 from joblib import Memory
+import os
 
 # Use joblib for caching to speed up repeated computations
-memory = Memory(location='.cache', verbose=0)
+cache_dir = os.path.join(os.path.dirname(__file__), '.cache')
+memory = Memory(location=cache_dir, verbose=0)
 
 @memory.cache
 def load_and_preprocess_data():
-    places_df = pd.read_csv('replaced_locations.csv')
+    places_df = pd.read_csv('replaced_locations.csv', chunksize=10000)
+    places_df = pd.concat([chunk for chunk in places_df])
     places_df['combined_features'] = places_df['Category'] + ' ' + places_df['City']
-    ratings_df = pd.read_csv('user_ratings5.csv')
+
+    ratings_df = pd.read_csv('user_ratings5.csv', chunksize=10000)
+    ratings_df = pd.concat([chunk for chunk in ratings_df])
     return places_df, ratings_df
 
 @memory.cache
@@ -22,8 +27,26 @@ def compute_tfidf_matrix(combined_features):
     return tfidf, tfidf_matrix
 
 def create_user_item_matrix(ratings_df):
-    user_item_matrix = ratings_df.pivot(index='user_id', columns='place_id', values='rating').fillna(0)
-    return user_item_matrix
+    user_ids = ratings_df['user_id'].unique()
+    place_ids = ratings_df['place_id'].unique()
+    user_id_map = {id: index for index, id in enumerate(user_ids)}
+    place_id_map = {id: index for index, id in enumerate(place_ids)}
+
+    row = ratings_df['user_id'].map(user_id_map)
+    col = ratings_df['place_id'].map(place_id_map)
+    data = ratings_df['rating']
+
+    return csr_matrix((data, (row, col)), shape=(len(user_ids), len(place_ids))), user_id_map, place_id_map
+
+def get_cf_scores(user_item_matrix, user_id_map, user_id, n_similar=10):
+    if user_id not in user_id_map:
+        return np.zeros(user_item_matrix.shape[1])
+
+    user_index = user_id_map[user_id]
+    user_vector = user_item_matrix[user_index].toarray().flatten()
+    similarities = cosine_similarity(user_vector.reshape(1, -1), user_item_matrix.toarray())[0]
+    similar_users = np.argsort(similarities)[::-1][1:n_similar+1]
+    return user_item_matrix[similar_users].mean(axis=0).A1
 
 def recommend(user_data):
     places_df, ratings_df = load_and_preprocess_data()
@@ -35,17 +58,8 @@ def recommend(user_data):
     content_similarity_scores = cosine_similarity(user_vector, tfidf_matrix).flatten()
 
     # Collaborative filtering part
-    user_item_matrix = create_user_item_matrix(ratings_df)
-    user_similarity = cosine_similarity(user_item_matrix)
-
-    user_id = user_data['user_id']
-    if user_id not in user_item_matrix.index:
-        # New user, use only content-based filtering
-        cf_scores = np.zeros(len(places_df))
-    else:
-        user_index = user_item_matrix.index.get_loc(user_id)
-        similar_users = user_similarity[user_index].argsort()[::-1][1:11]  # top 10 similar users
-        cf_scores = user_item_matrix.iloc[similar_users].mean().values
+    user_item_matrix, user_id_map, _ = create_user_item_matrix(ratings_df)
+    cf_scores = get_cf_scores(user_item_matrix, user_id_map, user_data['user_id'])
 
     # Combine scores
     combined_scores = 0.5 * content_similarity_scores + 0.5 * cf_scores
@@ -67,7 +81,6 @@ def recommend(user_data):
     top_recommendations = recommendations_df.head(30)
 
     return list(top_recommendations['Name'])
-
 
 # Example usage
 if __name__ == "__main__":
